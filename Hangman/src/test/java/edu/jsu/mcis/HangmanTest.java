@@ -4,7 +4,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 public class HangmanTest {
-    
+
     // Exam Question 1
     // Implement the Hangman available() method to make this 
     // unit test pass correctly.
@@ -50,9 +50,23 @@ public class HangmanTest {
     // test pass correctly.
     @Test
     public void testSixOrMoreMissesCausesALoss() {
-        assertTrue(false);
+		Hangman h = new Hangman();
+		h.setWord("inconceivable");
+		h.guess('t');
+		assertEquals(1, h.getNumTurns());
+		h.guess('k');
+		assertEquals(2, h.getNumTurns());
+		h.guess('z');
+		assertEquals(3, h.getNumTurns());
+		h.guess('y');
+		assertEquals(4, h.getNumTurns());
+		h.guess('j');
+		assertEquals(5, h.getNumTurns());
+		h.guess('x');
+		assertEquals(6, h.getNumTurns());
+        assertEquals("LOSE", h.getResult().toString());
     }
-    
+   
     // Exam Question 5
     // Implement this unit test to ensure that guessing all the 
     // letters correctly before six misses results in a win. Then,
@@ -60,7 +74,15 @@ public class HangmanTest {
     // test pass correctly.
     @Test
     public void testGuessingEveryLetterBeforeSixMissesCausesAWin() {
-        assertTrue(false);
+        Hangman h = new Hangman();
+		h.setWord("snap");
+		h.guess('e');
+		assertEquals(1, h.getNumMisses());
+		h.guess('p');
+		h.guess('a');
+		h.guess('n');
+		h.guess('s');
+		assertEquals("WIN", h.getResult().toString());
     }
-    
+   
 }
