@@ -25,12 +25,12 @@ public class ConnectFourTest {
         ConnectFour game = new ConnectFour();
         boolean ableToDropToken = game.dropTokenInColumn(3);
         assertTrue(ableToDropToken);
+		assertEquals(1, game.getHeightOfColumn(3));
         assertEquals(ConnectFour.Token.RED, game.getTopOfColumn(3));
-        assertEquals(1, game.getHeightOfColumn(3));
         ableToDropToken = game.dropTokenInColumn(3);
         assertTrue(ableToDropToken);
+		assertEquals(2, game.getHeightOfColumn(3));
         assertEquals(ConnectFour.Token.BLACK, game.getTopOfColumn(3));
-        assertEquals(2, game.getHeightOfColumn(3));
     }
     
     // Exam Question 3
@@ -73,7 +73,16 @@ public class ConnectFourTest {
     // test pass correctly.
     @Test
     public void testRedWinVerticallyInCenterColumn() {
-        assertTrue(false);
+        ConnectFour game = new ConnectFour();
+        game.dropTokenInColumn(1);
+        game.dropTokenInColumn(2);
+        game.dropTokenInColumn(1);
+        game.dropTokenInColumn(2);
+        game.dropTokenInColumn(1);
+	 	game.dropTokenInColumn(2);
+	 	game.dropTokenInColumn(1);
+		assertEquals(ConnectFour.Result.RED_WIN, game.getResult());
+	
     }
     
     // Exam Question 5
@@ -98,6 +107,17 @@ public class ConnectFourTest {
     // test pass correctly.
     @Test
     public void testBlackWinHorizontallyInSecondRowFromBottom() {
-        assertTrue(false);
+        ConnectFour game = new ConnectFour();
+        game.dropTokenInColumn(3);
+        game.dropTokenInColumn(3);
+        game.dropTokenInColumn(4);
+        game.dropTokenInColumn(4);
+        game.dropTokenInColumn(5);
+	 	game.dropTokenInColumn(5);
+	 	game.dropTokenInColumn(0);
+		game.dropTokenInColumn(6);
+	 	game.dropTokenInColumn(0);
+	 	game.dropTokenInColumn(6);
+		assertEquals(ConnectFour.Result.BLACK_WIN, game.getResult());
     }
 }

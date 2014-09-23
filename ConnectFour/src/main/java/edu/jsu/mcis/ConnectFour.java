@@ -19,19 +19,77 @@ public class ConnectFour {
     }
     
     public Token getTopOfColumn(int col) {
-        return Token.EMPTY;
+		if(getHeightOfColumn(col) == 0) {
+			return board[0][col];
+		}
+		else{
+			return board[ROWS - getHeightOfColumn(col)][col];
+		}
     }
     
     public int getHeightOfColumn(int col) {
-        return -1;
+		int height = 0;
+        for(int i = 5; i >= 0; i--) {
+			if(board[i][col] != Token.EMPTY) {
+				height = height + 1;
+			}
+		}	
+		return height;
     }
     
     public boolean dropTokenInColumn(int col) {
-        return false;
+		boolean ableToDrop = false;
+		if(board[5][col] == Token.EMPTY) {
+			board[5][col] = (redTurn)? Token.RED : Token.BLACK;
+			redTurn = !redTurn;
+			ableToDrop = true;
+		}
+		else if(board[4][col] == Token.EMPTY) {
+			board[4][col] = (redTurn)? Token.RED : Token.BLACK;
+			redTurn = !redTurn;
+			ableToDrop = true;
+		}
+		else if(board[3][col] == Token.EMPTY) {
+			board[3][col] = (redTurn)? Token.RED : Token.BLACK;
+			redTurn = !redTurn;
+			ableToDrop = true;
+		}
+		else if(board[2][col] == Token.EMPTY) {
+			board[2][col] = (redTurn)? Token.RED : Token.BLACK;
+			redTurn = !redTurn;
+			ableToDrop = true;
+		}
+		else if(board[1][col] == Token.EMPTY) {
+			board[1][col] = (redTurn)? Token.RED : Token.BLACK;
+			redTurn = !redTurn;
+			ableToDrop = true;
+		}
+		else if(board[0][col] == Token.EMPTY) {
+			board[0][col] = (redTurn)? Token.RED : Token.BLACK;
+			redTurn = !redTurn;
+			ableToDrop = true;
+		}
+		else {
+			ableToDrop = false;
+		}
+		
+		getResult();
+		//System.out.println("|" + makeStringFromColumn(col) + "|");
+		return ableToDrop;
     }
-    
+
     public Result getResult() {
-        return Result.TIE;
+		for(int i = 0; i < COLUMNS; i++) {
+			if(doesRedWinVerticallyInColumn(i)) {
+				return Result.RED_WIN;
+			}
+		}
+		for(int j = 0; j < ROWS; j++) {
+			if(doesBlackWinHorizontallyInRow(j)) {
+				return Result.BLACK_WIN;
+			}
+		}
+		return Result.TIE;
     }
     
     
@@ -41,6 +99,11 @@ public class ConnectFour {
         String columnString = makeStringFromColumn(col);
         return (columnString.indexOf("RRRR") >= 0);
     }
+
+	private boolean doesBlackWinHorizontallyInRow(int row) {
+	    String columnString = makeStringFromRow(row);
+	    return (columnString.indexOf("BBBB") >= 0);
+	}
     
     private String makeStringFromColumn(int col) {
         String s = "";
@@ -51,6 +114,16 @@ public class ConnectFour {
         }
         return s;
     }
+
+	private String makeStringFromRow(int row) {
+		String s = "";
+	    for(int col = 0; col < COLUMNS; col++) {
+	    	if(board[row][col] == Token.RED) s += "R";
+	        else if(board[row][col] == Token.BLACK) s += "B";
+	        else s += " "; 
+	    }
+	    return s;
+	}
 }
 
 
